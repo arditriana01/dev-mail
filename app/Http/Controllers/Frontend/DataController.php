@@ -45,6 +45,18 @@ class DataController extends Controller
         return redirect()->route('data.data')->with('success', 'Data imported successfully!');
     }
 
+    private function getShortenedName($fullName)
+    {
+        $nameParts = explode(" ", $fullName);
+        $shortenedName = substr($nameParts[0], 0, 1);
+
+        if (count($nameParts) > 1) {
+            $shortenedName .= $nameParts[1];
+        }
+
+        return $shortenedName;
+    }
+
     public function updateDataEmail()
     {
         $dataBalineseName = [
@@ -172,7 +184,7 @@ class DataController extends Controller
         function getFirstName($nama) {
             $namaArray = explode(' ', $nama);
             return $namaArray[0];
-        }
+        }    
 
         foreach ($dataUser as $user) {
             $name = $user->name;
@@ -195,15 +207,36 @@ class DataController extends Controller
                 if (!$matchFound) {
                     break;
                 }
-            }
+            }    
 
             $firstName = getFirstName(strtolower($name));
             
             $prodi = isset($dataProdi[$studyProgram]) ? $dataProdi[$studyProgram] : $studyProgram;
 
             $newBatch = substr($batch, -2);
+
+            $email = $firstName.$prodi.$newBatch.'@std.primakara.ac.id';
+
+            // Cek apakah email sudah ada di database
+            $count = User::where('email', $email)->count();
+
+            if ($count > 0) {
+                // Jika email sudah ada, tambahkan shortened name di belakang email
+                $shortenedName = $this->getShortenedName($name);
+                $newEmail = $shortenedName . $prodi . $newBatch . '@std.primakara.ac.id';
+    
+                // Pastikan shortened name yang baru juga unik
+                $i = 2;
+                while (User::where('email', $newEmail)->count() > 0) {
+                    $newEmail = $shortenedName . $prodi . $newBatch . $i . '@std.primakara.ac.id';
+                    $i++;
+                }
+    
+                $user->email = $newEmail;
+            } else {
+                $user->email = $email;
+            }
             
-            $user->email = $firstName.$prodi.$newBatch.'@std.primakara.ac.id';
             $user->updated_at = now(); 
             $user->save();
         }
