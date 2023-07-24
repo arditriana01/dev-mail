@@ -7,8 +7,8 @@
 - <b>composer update</b> <br>
 - <b>copy .env.example .env</b> <br>
 - <b>php artisan key:generate</b> <br>
-- <b>php artisan migrate</b> <br>
 - Set <b>DB_DATABASE={database_name}</b> on .env
+- <b>php artisan migrate</b> <br>
 
 ## Important for Every Change
 - <b>php artisan config:cache</b>
