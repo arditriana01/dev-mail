@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\DataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,4 +14,9 @@ use App\Http\Controllers\Frontend\HomeController;
 |
 */
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [DataController::class, 'index'])->name('data.index');
+Route::get('/data', [DataController::class, 'data'])->name('data.data');
+
+Route::post('/upload', [DataController::class, 'storeDataName'])->name('data.upload');
+
+Route::put('/update-data', [DataController::class, 'updateDataEmail'])->name('data.update.email');

@@ -190,9 +190,13 @@ return [
     |
     */
 
-    'aliases' => Facade::defaultAliases()->merge([
+    'aliases' => [
         // ...
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-    ])->toArray(),
+    ],    
+
+    // 'aliases' => Facade::defaultAliases()->merge([
+        // ...        
+    // ])->toArray(),
 
 ];
