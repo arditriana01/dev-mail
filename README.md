@@ -3,7 +3,7 @@
 ## Generate Email
 
 ## Installation Develop & Live Mode
-- <b>git clone</b> <br>
+- <b>git clone https://github.com/arditriana01/dev-mail.git</b> <br>
 - <b>composer update</b> <br>
 - <b>copy .env.example .env</b> <br>
 - <b>php artisan key:generate</b> <br>
