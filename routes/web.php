@@ -16,7 +16,8 @@ use App\Http\Controllers\Frontend\DataController;
 
 Route::get('/', [DataController::class, 'index'])->name('data.index');
 Route::get('/data', [DataController::class, 'data'])->name('data.data');
+Route::get('/all-data', [DataController::class, 'show'])->name('data.show');
 
 Route::post('/upload', [DataController::class, 'storeDataName'])->name('data.upload');
 
-Route::put('/update-data', [DataController::class, 'updateDataEmail'])->name('data.update.email');
+Route::post('/update-data', [DataController::class, 'updateDataEmail'])->name('data.update.email');
