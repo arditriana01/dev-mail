@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('prodi')->nullable();
             $table->string('year')->nullable();            
             $table->string('email')->nullable()->unique();
+            $table->enum('status', [0, 1]);
             $table->timestamps();
         });
     }

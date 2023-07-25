@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\UsersImport;
-use App\Models\User;
+use App\Exports\UsersExport;
 
 use Illuminate\Support\Facades\DB;
+
+use App\Models\User;
 
 class DataController extends Controller
 {
@@ -20,8 +22,9 @@ class DataController extends Controller
 
     public function data()
     {
-        $getDataUser = User::groupBy('created_at')
+        $getDataUser = User::groupBy('created_at', 'status')
                             ->select('created_at', DB::raw('count(*) as total'))
+                            ->select('status')
                             ->get();
         
         return view('data', compact('getDataUser'));
@@ -36,13 +39,13 @@ class DataController extends Controller
     {           
         $request->validate([
             'file' => 'required|mimes:csv,xlsx'
-        ]);
+        ]);        
 
         $file = $request->file('file');
 
         Excel::import(new UsersImport, $file);        
             
-        return redirect()->route('data.data')->with('success', 'Data imported successfully!');
+        return redirect()->route('data.data')->with('success', 'Data Berhasil di Import');
     }
 
     private function getShortenedName($fullName)
@@ -237,10 +240,16 @@ class DataController extends Controller
                 $user->email = $email;
             }
             
+            $user->status = '1';
             $user->updated_at = now(); 
             $user->save();
         }
 
-        return redirect()->back()->with('success', 'Semua data berhasil diperbarui!');
+        return redirect()->back()->with('successGenerete', 'Email Berhasil di Generate!');
+    }
+
+    public function exportEmail()
+    {
+        return Excel::download(new UsersExport(), 'users.xlsx');
     }
 }

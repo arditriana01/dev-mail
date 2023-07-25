@@ -19,5 +19,6 @@ Route::get('/data', [DataController::class, 'data'])->name('data.data');
 Route::get('/all-data', [DataController::class, 'show'])->name('data.show');
 
 Route::post('/upload', [DataController::class, 'storeDataName'])->name('data.upload');
+Route::get('/export', [DataController::class, 'exportEmail'])->name('data.export');
 
 Route::post('/update-data', [DataController::class, 'updateDataEmail'])->name('data.update.email');

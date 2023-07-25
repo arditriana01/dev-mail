@@ -1,5 +1,3 @@
-<!-- <p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p> -->
-
 ## Generate Email
 
 ## Installation Develop & Live Mode
@@ -14,6 +12,9 @@
 - <b>php artisan config:cache</b>
 - <b>php artisan cache:clear </b>
 - <b>php artisan view:cache</b>
+
+## Contoh Data
+- data_mahasiswa_prodi.xlsx
 
 ## Support PHP
 - version <b>7.* - 8.1</b>
