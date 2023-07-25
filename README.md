@@ -13,7 +13,7 @@
 - <b>php artisan cache:clear </b>
 - <b>php artisan view:cache</b>
 
-## Contoh Data
+## Data
 - data_mahasiswa_prodi.xlsx
 
 ## Support PHP
